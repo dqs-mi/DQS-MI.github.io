@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <title>登录注册系统</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Arial, sans-serif;
+    }
+    body {
+      background-image: url("https://picsum.photos/1920/1080");
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+    .container {
+      background: rgba(255, 255, 255, 0.2);
+      backdrop-filter: blur(15px);
+      -webkit-backdrop-filter: blur(15px);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      padding: 35px 30px;
+      border-radius: 20px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+      width: 380px;
+    }
+
+    .tab {
+      display: flex;
+      margin-bottom: 20px;
+      gap: 10px;
+    }
+    .tab-btn {
+      flex: 1;
+      padding: 12px;
+      border: none;
+      background: rgba(255,255,255,0.3);
+      font-size: 16px;
+      cursor: pointer;
+      border-radius: 10px;
+      transition: 0.3s;
+      color: #fff;
+    }
+    .tab-btn.active {
+      background: linear-gradient(90deg, #ff9a9e, #fad0c4, #f6c7ff);
+      color: #fff;
+      font-weight: bold;
+    }
+
+    .title {
+      text-align: center;
+      margin-bottom: 10px;
+      font-size: 24px;
+      font-weight: bold;
+      background: linear-gradient(90deg, #ff9a9e, #fad0c4, #f6c7ff, #a1c4fd);
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent;
+    }
+
+    #msg {
+      text-align: center;
+      margin-bottom: 15px;
+      height: 20px;
+      font-size: 14px;
+      font-weight: bold;
+      background: linear-gradient(90deg, #ffecd2, #fcb69f, #d299c2, #a1c4fd);
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent;
+    }
+
+    .page {
+      display: none;
+    }
+    .page.show {
+      display: block;
+    }
+
+    input {
+      width: 100%;
+      padding: 14px;
+      margin: 8px 0;
+      background: rgba(255,255,255,0.5);
+      border: 1px solid rgba(255,255,255,0.4);
+      border-radius: 12px;
+      font-size: 15px;
+      outline: none;
+      transition: 0.3s;
+    }
+    input:focus {
+      background: rgba(255,255,255,0.8);
+      border-color: #fff;
+    }
+
+    button {
+      width: 100%;
+      padding: 14px;
+      background: rgba(255,255,255,0.85);
+      color: #333;
+      font-weight: bold;
+      border: none;
+      border-radius: 12px;
+      font-size: 16px;
+      margin-top: 10px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    button:hover {
+      background: #fff;
+    }
+
+    .link {
+      text-align: center;
+      margin-top: 15px;
+      font-size: 14px;
+      background: linear-gradient(90deg, #ffecd2, #fcb69f, #d299c2, #a1c4fd);
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent;
+    }
+    .link span {
+      font-weight: bold;
+      cursor: pointer;
+      background: linear-gradient(90deg, #ff9a9e, #a1c4fd);
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <div class="title">用户登录系统</div>
+  <div id="msg"></div>
+
+  <div class="tab">
+    <button class="tab-btn active" onclick="showLogin()">登录</button>
+    <button class="tab-btn" onclick="showRegister()">注册</button>
+  </div>
+
+  <!-- 登录 -->
+  <div id="login" class="page show">
+    <input type="text" id="login-user" placeholder="请输入账号">
+    <input type="password" id="login-pwd" placeholder="请输入密码">
+    <button onclick="login()">登录</button>
+    <div class="link">
+      忘记密码？<span onclick="showForget()">点击找回</span>
+    </div>
+  </div>
+
+  <!-- 注册 -->
+  <div id="register" class="page">
+    <input type="text" id="reg-user" placeholder="请设置账号">
+    <input type="password" id="reg-pwd" placeholder="请设置密码">
+    <button onclick="register()">注册</button>
+  </div>
+
+  <!-- 忘记密码 -->
+  <div id="forget" class="page">
+    <input type="text" id="forget-user" placeholder="请输入账号">
+    <input type="password" id="forget-new-pwd" placeholder="请输入新密码">
+    <button onclick="forgetPwd()">重置密码</button>
+    <div class="link">
+      <span onclick="showLogin()">返回登录</span>
+    </div>
+  </div>
+</div>
+
+<script>
+  let msgDom = document.getElementById('msg');
+
+  function showMsg(text) {
+    msgDom.innerText = text;
+    setTimeout(() => { msgDom.innerText = '' }, 3000);
+  }
+
+  // 全修复：电脑手机都能用
+  function showLogin() {
+    document.g
